@@ -43,5 +43,7 @@ fun WikipediaView(
 @Preview
 @Composable
 private fun WikipediaViewPreview() {
-    WikipediaView(viewModel = DataViewModel(), onSelected = {})
+    WikipediaView(
+        viewModel = DataViewModel()
+    )
 }
