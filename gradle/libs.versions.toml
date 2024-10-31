@@ -9,6 +9,9 @@ lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.3"
 composeBom = "2024.10.00"
 kotlinxSerializationJson = "1.7.3"
+fuel = "3.0.0-alpha04"
+lifecycleViewmodelCompose = "2.8.7"
+fuelKotlinxSerialization = "3.0.0-alpha04"
 
 
 [libraries]
@@ -27,6 +30,9 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+fuel = { group = "com.github.kittinunf.fuel", name = "fuel", version.ref = "fuel" }
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
+fuel-kotlinx-serialization = { group = "com.github.kittinunf.fuel", name = "fuel-kotlinx-serialization", version.ref = "fuelKotlinxSerialization" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
