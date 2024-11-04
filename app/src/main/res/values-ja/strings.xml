@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">cherry Blossoms</string>
     <string name="search">Search</string>
+    <string name="best_cherry_blossom">桜100選</string>
+    <string name="wikipedia">Wikipedia</string>
 </resources>

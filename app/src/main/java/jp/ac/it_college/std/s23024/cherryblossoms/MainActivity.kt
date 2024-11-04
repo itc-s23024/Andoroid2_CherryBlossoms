@@ -11,15 +11,23 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import jp.ac.it_college.std.s23024.cherryblossoms.model.Cherry
 import jp.ac.it_college.std.s23024.cherryblossoms.ui.CherryList
+import jp.ac.it_college.std.s23024.cherryblossoms.ui.WikipediaView
 import jp.ac.it_college.std.s23024.cherryblossoms.ui.theme.CherryBlossomsTheme
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 
 class MainActivity : ComponentActivity() {
@@ -34,6 +42,34 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
                     val jsonString = getJson(resources)
                     val cherryList = getCherryList(jsonString)
+                    val titles = listOf(
+                        stringResource(R.string.best_cherry_blossom),
+                        stringResource(R.string.wikipedia)
+                    )
+                    val pagerState = rememberPagerState(pageCount = { titles.size })
+                    val scope = rememberCoroutineScope()
+                    Column {
+                        TabRow(
+                            selectedTabIndex = pagerState.currentPage
+                        ) {
+                            titles.forEachIndexed { index, title ->
+                                Tab(selected = pagerState.currentPage == index, onClick = {
+                                    scope.launch {
+                                        pagerState.animateScrollToPage(index)
+                                    }
+                                }, text = { Text(title) })
+                            }
+                        }
+                        HorizontalPager(state = pagerState) { page ->
+                            when (page) {
+                                1 -> WikipediaView { search ->
+                                    val url = "Https://ja.wikipedia.org/wiki/${search.title}"
+                                    openBrower(url)
+                                }
+                            }
+                        }
+                    }
+
                    CherryList(
                        modifier = Modifier.padding(innerPadding),
                        cherryList = cherryList,
@@ -42,6 +78,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun openBrower(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
     private fun openGoggleMaps(latitude: String, longitude: String) {
