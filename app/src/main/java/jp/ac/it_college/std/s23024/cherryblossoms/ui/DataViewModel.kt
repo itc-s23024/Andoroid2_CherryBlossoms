@@ -20,7 +20,7 @@ class DataViewModel : ViewModel(){
                 """
                     https://ja.wikipedia.org/w/api.php?
                     action=query&format=json&prop=images&list=search&formatversion=2&
-                    imlimit=1&srsearch=桜の名所 
+                    imlimit=1&srsearch=桜の名所&srlimit=500 
                 """.trimIndent().replace(System.lineSeparator(),"")
             ).toJson(
                 json = Json { ignoreUnknownKeys = true },

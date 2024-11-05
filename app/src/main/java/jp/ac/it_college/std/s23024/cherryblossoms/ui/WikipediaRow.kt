@@ -75,7 +75,7 @@ private fun WikipediaRowPreview() {
             title = "桜",
             pageid = 1,
             size = 1,
-            workdcount = 1,
+            wordcount = 1,
             snippet = "桜(さくら)はバラ科サクラ属の落葉高木である。",
             timestamp = "2021-10-01T00:00:00Z"
         )

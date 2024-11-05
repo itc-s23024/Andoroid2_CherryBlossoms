@@ -8,7 +8,7 @@ data class ApiSearch(
     val title: String,
     val pageid: Int,
     val size: Int,
-    val workdcount: Int,
+    val wordcount: Int,
     val snippet: String,
     val timestamp: String,
 )

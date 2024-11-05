@@ -23,6 +23,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import jp.ac.it_college.std.s23024.cherryblossoms.model.Cherry
 import jp.ac.it_college.std.s23024.cherryblossoms.ui.CherryList
 import jp.ac.it_college.std.s23024.cherryblossoms.ui.WikipediaView
@@ -48,7 +49,9 @@ class MainActivity : ComponentActivity() {
                     )
                     val pagerState = rememberPagerState(pageCount = { titles.size })
                     val scope = rememberCoroutineScope()
-                    Column {
+                    Column(
+                        modifier = Modifier.padding(innerPadding),
+                    ) {
                         TabRow(
                             selectedTabIndex = pagerState.currentPage
                         ) {
@@ -62,6 +65,11 @@ class MainActivity : ComponentActivity() {
                         }
                         HorizontalPager(state = pagerState) { page ->
                             when (page) {
+                                0 -> CherryList(
+                                    modifier = Modifier.padding(innerPadding),
+                                    cherryList = cherryList,
+                                    onSelected = { openGoogleMaps(it.latitude, it.longitude) }
+                                )
                                 1 -> WikipediaView { search ->
                                     val url = "Https://ja.wikipedia.org/wiki/${search.title}"
                                     openBrower(url)
@@ -69,12 +77,6 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     }
-
-                   CherryList(
-                       modifier = Modifier.padding(innerPadding),
-                       cherryList = cherryList,
-                       onSelected = { openGoggleMaps(it.latitude, it.longitude) }
-                   )
                 }
             }
         }
@@ -85,7 +87,7 @@ class MainActivity : ComponentActivity() {
         startActivity(intent)
     }
 
-    private fun openGoggleMaps(latitude: String, longitude: String) {
+    private fun openGoogleMaps(latitude: String, longitude: String) {
         val gmmIntentUri = Uri.parse("geo:$latitude,$longitude")
         Intent(Intent.ACTION_VIEW, gmmIntentUri).let {
             it.setPackage("com.google.android.apps.maps")
